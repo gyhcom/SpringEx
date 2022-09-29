@@ -31,8 +31,9 @@ public class TodoController {
     }
 
     @PostMapping("/register")
-    public String registerPost(@Valid TodoDTO todoDTO, RedirectAttributes redirectAttributes, BindingResult bindingResult) {
-
+    public String registerPost(@Valid TodoDTO todoDTO, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+        //bindingResult는 반드시 View로 넘기고자 하는 개체 바로 뒤에 선언해야함 안 그러면 동작도 안하고 메소드 호출은 되는데
+        //뭔가 이상하게 꼬임
         log.info("post todo register...");
 
         if(bindingResult.hasErrors()){
