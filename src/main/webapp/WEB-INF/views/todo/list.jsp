@@ -51,7 +51,7 @@
             <c:forEach items="${dtoList}" var ="dto">
                 <tr>
                     <th scope="row"><c:out value="${dto.tno}"/> </th>
-                    <th><c:out value="${dto.title}"/> </th>
+                    <th><a href="/todo/read?tno=${dto.tno}" class="text-decoration-none"> <c:out value="${dto.title}"/> </a></th>
                     <th><c:out value="${dto.writer}"/> </th>
                     <th><c:out value="${dto.dueDate}"/> </th>
                     <th><c:out value="${dto.finished}"/> </th>
@@ -61,9 +61,6 @@
             </table>
             </div>
         </div>
-    </div>
-    <div class ="row content">
-        <h1>Content</h1>
     </div>
     <div class="row fixed-bottom" style="z-index: -100">
         <footer class="py-1 my-1">

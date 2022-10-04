@@ -3,6 +3,7 @@ package com.gyh.springex.service;
 import com.gyh.springex.controller.TodoDTO.TodoDTO;
 import com.gyh.springex.domain.TodoVo;
 import com.gyh.springex.mapper.TodoMapper;
+import com.sun.tools.javac.comp.Todo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.modelmapper.ModelMapper;
@@ -41,5 +42,17 @@ public class TodoServiceImpl implements TodoService{
         TodoDTO todoDTO = modelMapper.map(todoVo, TodoDTO.class);
         return todoDTO;
     }
+
+    @Override
+    public void remove(Long tno) {
+        todoMapper.remove(tno);
+    }
+
+    @Override
+    public void modify(TodoDTO todoDTO) {
+        TodoVo todoVo = modelMapper.map(todoDTO, TodoVo.class);
+        todoMapper.update(todoVo);
+    }
+
 
 }

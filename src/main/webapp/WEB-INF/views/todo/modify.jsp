@@ -36,6 +36,7 @@
                 Featured
             </div>
             <div class="card-body">
+                <form action="/todo/modify" method="post">
                 <div class="input-group mb-3">
                     <span class="input-group-text">TNO</span>
                     <input type="text" name="tno" class="form-control"
@@ -45,13 +46,13 @@
                 <div class="input-group mb-3">
                     <span class="input-group-text">Title</span>
                     <input type="text" name="title" class="form-control"
-                           value='<c:out value="${dto.title}"></c:out>' readonly/>
+                           value='<c:out value="${dto.title}"></c:out>' />
                 </div>
 
                 <div class="input-group mb-3">
                     <span class="input-group-text">DueDate</span>
                     <input type="text" name="dueDate" class="form-control"
-                           value='<c:out value="${dto.dueDate}"></c:out>' readonly/>
+                           value='<c:out value="${dto.dueDate}"></c:out>'/>
                 </div>
 
                 <div class="input-group mb-3">
@@ -65,17 +66,28 @@
                         Finished &nbsp;
                     </label>
                     <input class="form-check-input" type="checkbox" name="finished"
-                    ${dto.finished?"checked":""} disabled/>
+                    ${dto.finished?"checked":""} />
                 </div>
 
                 <div class="my-4">
                     <div class="float-end">
+                        <button type="button" class="btn btn-danger">Remove</button>
                         <button type="button" class="btn btn-primary">Modify</button>
                         <button type="button" class="btn btn-secondary">List</button>
 
                     </div>
             </div>
+            </form>
             </div>
+
+            <script>
+                const serverValidResult = {}
+                <c:forEach items="${errors}" var="error">
+                serverValidResult['${error.getField()}'] = '${error.defaultMessage}'
+                </c:forEach>
+
+                console.log(serverValidResult)
+            </script>
         </div>
     </div>
     <div class="row fixed-bottom" style="z-index: -100">
@@ -91,15 +103,33 @@
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
 <script>
-    document.querySelector(".btn-primary").addEventListener("click",()=>{
+    document.querySelector(".btn-primary").addEventListener("click",(e)=>{
         console.log('수정버튼')
-        self.location="/todo/modify?tno=" + ${dto.tno}
+        e.preventDefault()
+        e.stopPropagation()
+
+        formObj.action = "/todo/modify"
+        formObj.method = "post"
+
+        formObj.submit()
     },false)
 
     document.querySelector(".btn-secondary").addEventListener("click", ()=>{
         console.log('목록으로')
         self.location = "/todo/list";
     })
+
+    const formObj = document.querySelector("form")
+    document.querySelector(".btn-danger").addEventListener("click",(e)=>{
+        console.log("삭제")
+        e.preventDefault()
+        e.stopPropagation()
+
+        formObj.action = "/todo/remove"
+        formObj.method ="post"
+
+        formObj.submit()
+    },false)
 </script>
 
 </body>
