@@ -92,14 +92,14 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
 <script>
     document.querySelector(".btn-primary").addEventListener("click",()=>{
-        console.log('수정버튼')
-        self.location="/todo/modify?tno=" + ${dto.tno}
+        console.log('수정버튼');
+        self.location = `/todo/modify?tno=${dto.tno}&${pageRequestDTO.link}`
     },false)
 
     document.querySelector(".btn-secondary").addEventListener("click", ()=>{
-        console.log('목록으로')
-        self.location = "/todo/list";
-    })
+        console.log('목록으로');
+        self.location = "/todo/list?${pageRequestDTO.link}";
+    },false)
 </script>
 
 </body>

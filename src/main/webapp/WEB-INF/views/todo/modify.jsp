@@ -37,6 +37,9 @@
             </div>
             <div class="card-body">
                 <form action="/todo/modify" method="post">
+                    <input type="text" name="page" value="${pageRequestDTO.page}"/>
+                    <input type="text" name="size" value="${pageRequestDTO.size}"/>
+
                 <div class="input-group mb-3">
                     <span class="input-group-text">TNO</span>
                     <input type="text" name="tno" class="form-control"
@@ -104,31 +107,31 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
 <script>
     document.querySelector(".btn-primary").addEventListener("click",(e)=>{
-        console.log('수정버튼')
-        e.preventDefault()
-        e.stopPropagation()
+        console.log('수정버튼');
+        e.preventDefault();
+        e.stopPropagation();
 
-        formObj.action = "/todo/modify"
-        formObj.method = "post"
+        formObj.action = "/todo/modify";
+        formObj.method = "post";
 
-        formObj.submit()
+        formObj.submit();
     },false)
 
     document.querySelector(".btn-secondary").addEventListener("click", ()=>{
-        console.log('목록으로')
-        self.location = "/todo/list";
+        console.log('목록으로');
+        self.location = "/todo/list?${pageRequestDTO.link}";
     })
 
     const formObj = document.querySelector("form")
     document.querySelector(".btn-danger").addEventListener("click",(e)=>{
-        console.log("삭제")
-        e.preventDefault()
-        e.stopPropagation()
+        console.log("삭제");
+        e.preventDefault();
+        e.stopPropagation();
 
-        formObj.action = "/todo/remove"
-        formObj.method ="post"
+        formObj.action = "/todo/remove";
+        formObj.method = "post";
 
-        formObj.submit()
+        formObj.submit();
     },false)
 </script>
 

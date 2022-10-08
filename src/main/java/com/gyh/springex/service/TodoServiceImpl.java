@@ -1,5 +1,7 @@
 package com.gyh.springex.service;
 
+import com.gyh.springex.controller.TodoDTO.PageRequestDTO;
+import com.gyh.springex.controller.TodoDTO.PageResponseDTO;
 import com.gyh.springex.controller.TodoDTO.TodoDTO;
 import com.gyh.springex.domain.TodoVo;
 import com.gyh.springex.mapper.TodoMapper;
@@ -29,12 +31,22 @@ public class TodoServiceImpl implements TodoService{
     }
 
     @Override
-    public List<TodoDTO> getAll() {
-        List<TodoDTO> dtoList = todoMapper.selectAll().stream()
+    public PageResponseDTO<TodoDTO> getList(PageRequestDTO pageRequestDTO) {
+        List<TodoVo> voList = todoMapper.selectList(pageRequestDTO);
+        List<TodoDTO> dtoList = voList.stream()
                 .map(vo -> modelMapper.map(vo, TodoDTO.class))
                 .collect(Collectors.toList());
-        return dtoList;
+
+        int total = todoMapper.getCount(pageRequestDTO);
+
+        PageResponseDTO<TodoDTO> pageResponseDTO = PageResponseDTO.<TodoDTO>withAll()
+                .dtoList(dtoList)
+                .total(total)
+                .pageRequestDTO(pageRequestDTO)
+                .build();
+        return pageResponseDTO;
     }
+
 
     @Override
     public TodoDTO getOne(Long tno) {
