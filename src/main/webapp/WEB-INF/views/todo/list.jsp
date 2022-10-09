@@ -31,6 +31,38 @@
                 </div>
             </div>
         </nav>
+        <div class="row content">
+            <div class="col">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Search</h5>
+                        <form action="/todo/list" method="get">
+                            <input type="hidden" name="size" value = "${pageRequestDTO.size}">
+                            <div class="mb-3">
+                                <input type="checkbox" name="finished" ${pageRequestDTO.finished?"checked":""}> 완료여부
+                            </div>
+                            <div class="mb3">
+                                <input type="checkbox" name="types" value="t" ${pageRequestDTO.checkType("t")?"checked":""}> 제목
+                                <input type="checkbox" name="types" value="w" ${pageRequestDTO.checkType("w")?"checked":""}> 작성자
+                                <input type="text" name="keyword" class="form-control">
+                            </div>
+                            <div class="input-group mb3 dueDateDiv">
+                                <input type ="date" name="from" class="form-control">
+                                <input type ="date" name="to" class="form-control">
+                            </div>
+                            <div class="input-grou mb-3">
+                                <div class="float-end">
+                                    <button class="btn btn-primary" type="submit">Search</button>
+                                    <button class="btn btn-info clearBtn" type="reset">Clear</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row content">
+        <div class="col">
         <div class="card">
             <div class="card-header">
                 Featured
@@ -96,8 +128,16 @@
                         self.location = `/todo/list?page=\${num}` //백틱(` `)을 이용해서 템플릿 처리
 
                     })
+                    document.querySelector(".clearBtn").addEventListener("click", (e)=>{
+                        e.preventDefault();
+                        e.stopPropagation();
+
+                        self.location="/todo/list"
+                    },false)
                 </script>
             </div>
+        </div>
+        </div>
         </div>
     </div>
     <div class="row fixed-bottom" style="z-index: -100">
